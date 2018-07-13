@@ -2,7 +2,7 @@
 
 
 # straw
-Partial screen scraper with character recognition. Easy and rapid way to set an interface up with software that refuses to save to file or programatically interact with other processes.
+Partial screen scraper with character recognition. Easy and rapid way to harvest output from software that refuses to save to file or programatically interact with other processes.
 
 # setup
 Straw is presently only compatible with linux. It depends on tesseract to work correctly. Tesseract can be installed via apt-get
