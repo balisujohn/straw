@@ -17,6 +17,7 @@ public class RuntimeManager {
 
     private static final int MODE_STDOUT = 0;
     private static final int MODE_FILE = 1;
+    private final [] touchPoint = {-1, -1};
     private int mode = MODE_STDOUT;
     private PrintWriter pr = null;
     private String fileName = "output.txt";
@@ -28,13 +29,11 @@ public class RuntimeManager {
 
     void start(String args[]) {
 
-
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {
             if (mode == MODE_FILE && pr != null)
                 pr.close();
             System.out.println("closing");
         }));
-
 
         for (int i = 0; i < args.length; i++) {
             if (args[i].startsWith("-")) {
@@ -59,8 +58,6 @@ public class RuntimeManager {
         coords[1] = -1;
         coords[2] = -1;
         coords[3] = -1;
-        final int[] touchPoint  = {-1,-1};
-
 
         BufferedImage img;
         try {
@@ -73,8 +70,7 @@ public class RuntimeManager {
             frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
             frame.setUndecorated(true);
             frame.setSize(size);
-             jPanel = new JPanel()
-            {
+            jPanel = new JPanel() {
                 @Override
                 protected void paintComponent(Graphics g) {
                     super.paintComponent(g);
@@ -144,11 +140,12 @@ public class RuntimeManager {
                     jPanel.repaint();
                     }
             });
-           // frame.getContentPane().add(new JLabel(new ImageIcon(img)));
+            // frame.getContentPane().add(new JLabel(new ImageIcon(img)));
             frame.pack();
             frame.setVisible(true);
         } catch (Exception e) {
-        }
+
+	} // end try
 
         if (mode == MODE_FILE) {
             File outputFile = new File(fileName);
@@ -167,9 +164,9 @@ public class RuntimeManager {
                 e.printStackTrace();
             }
         }
-        if (frame != null) {
+        if (frame != null)
             frame.dispatchEvent(new WindowEvent(frame, WindowEvent.WINDOW_CLOSING));
-        }
+
 
         closeDialog = new JFrame();
         closeDialog.getContentPane().setLayout(new FlowLayout());
@@ -263,7 +260,6 @@ public class RuntimeManager {
                 }
             }
             switch (mode) {
-
                 case MODE_STDOUT:
                     System.out.println(result);
                     break;
@@ -274,8 +270,9 @@ public class RuntimeManager {
             }
 
         }
-
-System.exit(1);    }
+	// No matter what this will force an exit status code of non 0. Why?
+	System.exit(1);
+    }
 
 }
 
