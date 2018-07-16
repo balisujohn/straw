@@ -32,7 +32,7 @@ output.txt
 hs_err_pid*
 
 
-.iml
+*.iml
 
 #generated stuff
 out
